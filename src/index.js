@@ -137,7 +137,7 @@ export class LightWebCore {
           AndroidNative.postMessage(JSON.stringify({ name, data: { data, id } }))
           break
         case 'dev':
-          window.require("electron").ipcRenderer.send("nativeEvent", JSON.stringify({ name, data: { data, id } }))
+          window.require("electron").ipcRenderer.send("nativeEvent", JSON.stringify({ globalName: this.globalName, name, data: { data, id } }))
           break
         default:
           console.log('==== name ====')
