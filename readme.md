@@ -1,14 +1,13 @@
 ## 概念
-以单层类为中心实现 core 内容，继承添加 方法 为扩展（UI，HTTP，file）
+以单例类为中心实现 `core` 内容，继承添加 **方法** 为扩展（ UI，HTTP，file ）
 
 ## core 功能实现
 * Bridge Function
   * init
   * page config
-  * app Info
   * vibrate
   * Clipboard
-  * router system
+  * Local Router System
 * Event Function
   * app show
   * app background
@@ -17,7 +16,7 @@
   * sceneMode
 
 ## 实现
-  * Bridge Function 通过 js Bridge native 方法去实现，而记录递增 ID 作为回调 ID，native 通过 exec JS 方法从而消耗（可不消耗） ID —— 执行回调。
+  * `Bridge Function` 通过 `js Bridge native` 方法去实现，而记录递增 ID 作为回调 ID，native 通过 exec JS 方法从而消耗（可不消耗） ID —— 执行回调。
   * Event Function 则是 js 通过 sub 执行的 Event。等待 native 层 exec puh JS 方法来执行 sub 的 方法。（sub 时候 会 return unSub 方法，执行即可解除 sub）。 其中 sub function 内部实现依靠 key & 递增 ID 作为依据保存 function  
   以上方法都应该尽量避免在 **回调中** 使用外层数据减少内存消耗。
 

@@ -1,4 +1,4 @@
-declare module 'light-web' {
+declare module 'light-web-core' {
   export interface Rect {
     width: number,
     height: number,
