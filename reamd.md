@@ -1,0 +1,61 @@
+## 概念
+以单层类为中心实现 core 内容，继承添加 方法 为扩展（UI，HTTP，file）
+
+## core 功能实现
+* Bridge Function
+  * init
+  * page config
+  * app Info
+  * vibrate
+  * Clipboard
+  * router system
+* Event Function
+  * app show
+  * app background
+  * view show
+  * view hidden
+  * sceneMode
+
+## 实现
+  * Bridge Function 通过 js Bridge native 方法去实现，而记录递增 ID 作为回调 ID，native 通过 exec JS 方法从而消耗（可不消耗） ID —— 执行回调。
+  * Event Function 则是 js 通过 sub 执行的 Event。等待 native 层 exec puh JS 方法来执行 sub 的 方法。（sub 时候 会 return unSub 方法，执行即可解除 sub）。 其中 sub function 内部实现依靠 key & 递增 ID 作为依据保存 function  
+  以上方法都应该尽量避免在 **回调中** 使用外层数据减少内存消耗。
+
+## 约束
+每个方法和参数都可以是随意的，但为了方便，在 core 里面的 exec 和 sub 的参数都带上约束
+```javascript
+const conf = {
+  isHideNav: false,
+  statusStyle:StyleTypes.light, // status 白色字体 
+  title: 'demo',
+  titleColor: '#ffffff',
+  navBackgroundColor: '#000000',
+  backgroundColor: '#f1f1f1',
+  bounces: true,
+  showCapsule:false,
+}
+const success = (res)=>{
+  // 标准返回值下
+  const {data,state} = res
+}
+const fail = (err)=>{
+  // 标准返回值下
+  const {errorMsg,state} = err
+}
+// LightWebCore 为单例，多次 new 获取的实例都是一样的。而且和 native 互通的 init 方法只在第一次 new 时候执行
+const lightWeb = new LightWebCore(conf,(res)=>{
+  // 标准返回值下
+  const {data,state} = res
+  // native 返回的三个信息
+  console.log(lightWeb.appInfo) 
+  console.log(lightWeb.routerInfo)
+  console.log(lightWeb.extra)
+},fail)
+
+// 修改页面配置
+lightWeb.changePageConfig(conf,(res)=>{
+  const {data,state} = res
+  // native 返回的信息
+  console.log(lightWeb.appInfo) 
+},fail)
+```
