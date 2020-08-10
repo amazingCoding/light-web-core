@@ -19,11 +19,15 @@ export const RouterActions = {
   'pop': 1,
   'replace': 2,
   'setPopExtra': 3,
-  'close': 4,
-  'restart': 5,
+  'restart': 4,
 }
 
-export const StyleTypes = {
+export const ThemeTypes = {
   'light': 0,
   'dark': 1
+}
+export const ThemeConfig = {
+  'light': 0,
+  'dark': 1,
+  'auto': 2,
 }

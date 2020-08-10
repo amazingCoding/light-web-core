@@ -1,7 +1,7 @@
 ## 概念
 以单例类为中心实现 `core` 内容，继承添加 **方法** 为扩展（ UI，HTTP，file ）
 
-## core 功能实现
+## core 功能实现: 九个方法，五个事件
 * Bridge Function
   * init
   * page config
@@ -25,7 +25,7 @@
 ```javascript
 const conf = {
   isHideNav: false,
-  statusStyle:StyleTypes.light, // status 白色字体 
+  statusStyle:ThemeTypes.light,
   title: 'demo',
   titleColor: '#ffffff',
   navBackgroundColor: '#000000',
@@ -34,11 +34,11 @@ const conf = {
   showCapsule:false,
 }
 const success = (res)=>{
-  // 标准返回值下
+  // 标准返回值下 state = 0
   const {data,state} = res
 }
 const fail = (err)=>{
-  // 标准返回值下
+  // 标准返回值下 state ！= 0
   const {errorMsg,state} = err
 }
 // LightWebCore 为单例，多次 new 获取的实例都是一样的。而且和 native 互通的 init 方法只在第一次 new 时候执行
@@ -58,3 +58,9 @@ lightWeb.changePageConfig(conf,(res)=>{
   console.log(lightWeb.appInfo) 
 },fail)
 ```
+
+
+### router & sub event 
+1. `push` & `replace` 操作，A 页面带数据给 B 页面。在 B 页面的 init 回调可以获取
+2. `pop` 操作，B 页面带数据给 A 页面。在 A 页面的 onShow 回调可以获取
+2. `pop` 操作有 API 操作 和 nav back button 操作。前者可以由 API 中设置 Extra。而后者只能通过 `setPopExtra` 来设置

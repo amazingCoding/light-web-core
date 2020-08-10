@@ -9,6 +9,7 @@ export const getEnvInfo = () => {
       device = arr[1]
       version = arr[2]
     }
+    if (arr[3]) window.WEBCODE = arr[3]
   }
   return { isInApp, device, version }
 }
