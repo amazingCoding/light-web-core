@@ -1,5 +1,5 @@
 import { getEnvInfo, objectDelKey, minObject } from "./helper"
-import { BridgeMethods, RouterActions,ThemeConfig } from './config'
+import { BridgeMethods, RouterActions, ThemeConfig } from './config'
 let shareInstance = null
 export class LightWebCore {
   info = null
@@ -31,7 +31,7 @@ export class LightWebCore {
             const { data } = res
             if (data.appInfo) this.appInfo = data.appInfo
             if (data.routerInfo) this.routerInfo = data.routerInfo
-            if (data.extra) this.extra = data.extra
+            if (data.extra) this.extra = data.extra ? JSON.parse(data.extra) : null
             if (data.currentTheme !== undefined) this.currentTheme = data.currentTheme
           }
           success(res)
@@ -47,7 +47,7 @@ export class LightWebCore {
       value: { ...view },
       success: (res) => {
         if (res && res.data) {
-          const { webWidth, webHeight,currentTheme } = res.data
+          const { webWidth, webHeight, currentTheme } = res.data
           this.appInfo.webWidth = webWidth
           this.appInfo.webHeight = webHeight
           this.currentTheme = currentTheme
@@ -128,11 +128,17 @@ export class LightWebCore {
     if (this.listenEvent.hasOwnProperty(key)) this.listenEvent[key] = null
   }
   // native 调用 —— 事件推送
-  pub(key, res, err) {
+  pub(key, res) {
     if (this.listenEvent.hasOwnProperty(key)) {
       const callBackCollection = this.listenEvent[key]
       for (const id in callBackCollection) {
-        if (callBackCollection.hasOwnProperty(id)) callBackCollection[id](res, err, false)
+        if (callBackCollection.hasOwnProperty(id)) {
+          const jsonRes = {
+            data: res.data ? JSON.parse(res.data) : null,
+            state: res.state
+          }
+          callBackCollection[id](jsonRes, null, false)
+        }
       }
     }
   }
