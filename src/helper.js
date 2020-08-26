@@ -32,3 +32,19 @@ export const minObject = (object) => {
   }
   return data
 }
+
+export const getExtra = (extra) => {
+  let res = null
+  if (extra === null || extra === undefined) {
+    res = null
+  }
+  else {
+    try {
+      res = JSON.parse(extra)
+    } 
+    catch (error) {
+      res = extra
+    }
+  }
+  return res
+}
