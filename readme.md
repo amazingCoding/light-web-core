@@ -8,6 +8,11 @@
   * vibrate
   * Clipboard
   * Local Router System
+    * push
+    * pop
+    * replace
+    * setPopExtra
+    * restart
 * Event Function
   * app show
   * app background
