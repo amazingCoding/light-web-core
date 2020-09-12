@@ -31,12 +31,11 @@ export class LightWebCore {
             const { data } = res
             if (data.appInfo) this.appInfo = data.appInfo
             if (data.routerInfo) this.routerInfo = data.routerInfo
-            // 是否是 null ? 
-            // 是null —— 直接返回 null
-            // 不是是null ——  进行 JSON.parse 
-            // 报错，直接返回 extra
-            // 不报错，直接返回 JSON.parse(extra)
-            if (data.extra) this.extra = getExtra(data.extra)
+            if (data.extra){
+              const extra = getExtra(data.extra)
+              res.data.extra = extra
+              this.extra = extra
+            }
             if (data.currentTheme !== undefined) this.currentTheme = data.currentTheme
           }
           success(res)
