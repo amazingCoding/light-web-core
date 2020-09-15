@@ -1,4 +1,5 @@
 ## 概念
+通过把开发的 web 端 文件打包成 zip 包，下载到 native 层去执行。
 以单例类为中心实现 `core` 内容，继承添加 **方法** 为扩展（ UI，HTTP，file ）
 
 ## core 功能实现: 九个方法，五个事件
@@ -69,3 +70,10 @@ lightWeb.changePageConfig(conf,(res)=>{
 1. `push` & `replace` 操作，A 页面带数据给 B 页面。在 B 页面的 init 回调可以获取
 2. `pop` 操作，B 页面带数据给 A 页面。在 A 页面的 onShow 回调可以获取
 2. `pop` 操作有 API 操作 和 nav back button 操作。前者可以由 API 中设置 Extra。而后者只能通过 `setPopExtra` 来设置
+
+## 试用
+1. 下载 PC 端调试工具：[light-web-electron](https://github.com/amazingCoding/light-web-electron)
+2. 下载 开发 demo : [light-web-demo](https://github.com/amazingCoding/light-web-demo)
+3. 下载 该仓库代码
+4. 把 demo 代码中的 `package.json` 中的 `"light-web-core": "file:../light-web"` 改成本地路径
+5. 运行 light-web-electron 和 light-web-demo 即可。
