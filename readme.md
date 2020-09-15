@@ -4,6 +4,8 @@
 3. 下载 该仓库代码
 4. 把 demo 代码中的 `package.json` 中的 `"light-web-core": "file:../light-web"` 改成本地路径
 5. 运行 light-web-electron 和 light-web-demo 即可。
+6. 安卓端：[light-web-android](https://github.com/amazingCoding/light-web-android)
+7. IOS端：[light-web-ios](https://github.com/amazingCoding/light-web-ios)
 
 ## 概念
 通过把开发的 web 端 文件打包成 zip 包，下载到 native 层去执行。  
